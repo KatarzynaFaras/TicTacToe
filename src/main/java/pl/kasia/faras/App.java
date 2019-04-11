@@ -10,11 +10,18 @@ public class App {
 
         int continueGame;
         do {
-            System.out.println("Podaj szerokość pola do gry od 3 do 6: ");
-            Game game = new Game(downloadNumberFromPlayer(3, 6));
+            System.out.println("Wybierz poziom trudności: \n\n" +
+                    " 1 - plansza o 9 polach \n" +
+                    " 2 - plansza o 25 polach \n");
+
+            int level = downloadNumberFromPlayer(1, 2);
+
+            Game game = level == 1 ? new Game(3) : new Game(5);
+
             System.out.println("Kto zaczyna? \n\n" +
                     " 1 - krzyżyki \n" +
                     " 2 - kółka\n");
+
             int whoFirst = downloadNumberFromPlayer(1, 2);
 
             Player player;
