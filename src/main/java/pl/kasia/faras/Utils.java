@@ -23,20 +23,22 @@ public class Utils {
         return number;
     }
 
-    public static  void printGameList(List<Integer> gameList) {
+    public static void printGameList(List<Integer> gameList) {
         for (int i = 0; i < gameList.size(); i++) {
             if (gameList.get(i).equals(i + 1)) {
-                System.out.printf("%4d", gameList.get(i));
+                System.out.printf("%6d", gameList.get(i));
             } else if (gameList.get(i).equals(120)) {
-                System.out.printf("%4c", 'x');
+                System.out.printf("%6c", 'x');
             } else if (gameList.get(i).equals(111)) {
-                System.out.printf("%4c", 'o');
+                System.out.printf("%6c", 'o');
             }
             if ((i + 1) % Math.sqrt(gameList.size()) == 0) {
+                System.out.println();
                 System.out.println();
             }
         }
     }
+
     public static boolean end(Game game) {
         Player winner = Conditions.whoWin(game);
         int allMoves = game.getPlayerO().getNumberOfMoves() + game.getPlayerX().getNumberOfMoves();

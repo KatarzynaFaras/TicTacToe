@@ -2,47 +2,63 @@ package pl.kasia.faras;
 
 import java.util.List;
 
+import static pl.kasia.faras.Conditions.whoWin;
+import static pl.kasia.faras.Utils.*;
+
 public class App {
     public static void main(String[] args) {
 
-        int decision;
+        int continueGame;
         do {
             System.out.println("Podaj szerokość pola do gry od 3 do 6: ");
-            Game game = new Game(Utils.downloadNumberFromPlayer(3, 6));
+            Game game = new Game(downloadNumberFromPlayer(3, 6));
+            System.out.println("Kto zaczyna? \n\n" +
+                    " 1 - krzyżyki \n" +
+                    " 2 - kółka\n");
+            int whoFirst = downloadNumberFromPlayer(1, 2);
 
-            System.out.println("Zaczynamy grę, krzyżyki pierwsze :)");
-            Player player = game.getPlayerX();
-            List<Integer> pole = game.getGameboard();
+            Player player;
             Player winner;
-            do {
-                Utils.printGameList(pole);
-                System.out.println("Podaj pozycje dla znaku: " + player.getSign());
-                int shot = Utils.downloadNumberFromPlayer(1, pole.size());
 
-                if ((pole.get(shot - 1).equals(120)) || (pole.get(shot - 1).equals(111))) {
+            if (whoFirst == 1) {
+                System.out.println("Zaczynamy grę, krzyżyki pierwsze :) \n");
+                player = game.getPlayerX();
+            } else {
+                System.out.println("Zaczynamy grę, kółka pierwsze :) \n");
+                player = game.getPlayerO();
+            }
+
+            List<Integer> pole = game.getGameboard();
+
+            do {
+                printGameList(pole);
+                System.out.println("Podaj pozycje dla znaku: " + player.getSign());
+                int move = downloadNumberFromPlayer(1, pole.size());
+
+                if ((pole.get(move - 1).equals(120)) || (pole.get(move - 1).equals(111))) {
                     System.out.println("Ta pozycja zostala juz zajeta");
                 } else {
-                    pole.set(shot - 1, player.getNumberOfSign());
+                    pole.set(move - 1, player.getNumberOfSign());
                     player.addMove();
                     player = game.switchPlayer(player);
                 }
             }
-            while (!Utils.end(game));
+            while (!end(game));
 
-            winner = Conditions.whoWin(game);
-            Utils.printGameList(pole);
+            winner = whoWin(game);
+            printGameList(pole);
 
             if (game.getPlayerX().equals(winner)) {
-                System.out.println("Wygrywają krzyżyki!");
+                System.out.println("Wygrywają krzyżyki! \n\n");
             } else if (game.getPlayerO().equals(winner)) {
-                System.out.println("Wygrywają kółka!");
+                System.out.println("Wygrywają kółka! \n\n");
             } else {
                 System.out.println("Remis!");
             }
             System.out.println("1 - Gramy dalej.\n" +
                     "2 - Koniec gry.");
-            decision = Utils.downloadNumberFromPlayer(1, 2);
-        }while (decision==1);
+            continueGame = downloadNumberFromPlayer(1, 2);
+        } while (continueGame == 1);
         System.out.println("Dzięki za grę! Do zobaczenia!");
     }
 }
