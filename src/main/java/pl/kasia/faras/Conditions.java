@@ -20,15 +20,13 @@ public class Conditions {
         }
         //warunek 1 skos
         counter = 0;
-        for (int j = 0; j < list.size(); j += width) {
             for (int i = 1; i < width; i++) {
                 counter = list.get(0).equals(list.get(width * i + i)) ? counter + 0 : counter + 1;
             }
-        }
         if (counter == 0) {
             return list.get(0).equals(game.getPlayerX().getNumberOfSign()) ? game.getPlayerX() : game.getPlayerO();
         }
-        //warymek na piony
+        //warunek na piony
         for (int k = 0; k < width; k++) {
             counter = 0;
             for (int l = width; l < list.size(); l += width) {

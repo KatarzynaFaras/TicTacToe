@@ -7,6 +7,7 @@ public class ConditionsTest {
 
     Game game = new Game(4);
     Game game2 = new Game(3);
+
     @Test
     public void whoWin_GameboardWidth4_checkRowWin() {
 
